@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import { colors, borders } from '../../styles/variables'
 import Arrow from '../Arrow'
 import GitpodLogo from '../../resources/gitpod-logo-dark.svg'
+// @ts-ignore
+import hyphenate from '../../utils/hyphenate'
 
 const StyledExpandableJob = styled.div`
   position: relative;
@@ -84,6 +86,13 @@ export interface ExpandableJobProps {
 
 const ExpandableJob = ({ title, intro, paragraphs, lists, textAfterTheLists, rendered, date }: ExpandableJobProps) => {
     const [isRendered, setIsRendered] = useState<boolean>(rendered || false)
+    const hash = `${hyphenate(title)}`
+
+    useEffect(() => {
+        if (window.location.hash === `#${hash}`) {
+            setIsRendered(true)
+        }
+    })
 
     const toggleIsRendered = () => {
         setIsRendered(!isRendered)
@@ -152,7 +161,7 @@ const ExpandableJob = ({ title, intro, paragraphs, lists, textAfterTheLists, ren
     }
 
     return (
-        <StyledExpandableJob>
+        <StyledExpandableJob id={hash}>
             <button onClick={toggleIsRendered}>
                 <Arrow
                     styles={{ transform: isRendered ? 'rotate(-90deg)' : 'rotate(90deg)' }}
