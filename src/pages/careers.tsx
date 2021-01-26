@@ -159,7 +159,8 @@ const jobs: ExpandableJobProps[] = [
             },
         ],
         textAfterTheLists: '',
-        rendered: false
+        rendered: false,
+        date: '2021-19-01T19:00:00.000Z'
     },
     {
         title: 'Senior Software Engineer (Full-Stack)',
